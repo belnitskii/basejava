@@ -6,18 +6,16 @@ import java.util.Objects;
  */
 public class ArrayStorage {
     Resume[] storage = new Resume[10000];
+    int size;
 
     void clear() {
-        Arrays.fill(storage, null);
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     void save(Resume r) {
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                storage[i] = r;
-                break;
-            }
-        }
+        storage[size] = r;
+        size++;
     }
 
     Resume get(String uuid) {
@@ -27,27 +25,13 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        int indexOfDelete = -1;
-        for (int i = 0; i < storage.length; i++) {
-            if (storage[i] == null) {
-                break;
-            }
+        for (int i = 0; i < size; i++) {
             if (storage[i].toString().equals(uuid)) {
-                indexOfDelete = i;
+                storage[i] = null;
+                if (size - i >= 0) System.arraycopy(storage, i + 1, storage, i, size - i);
+                size--;
             }
         }
-        if (indexOfDelete >= 0) {
-            for (int i = indexOfDelete; i < storage.length - 1; i++) {
-                if (storage[i] == null) {
-                    break;
-                }
-                Resume toBeDeleted = storage[i];
-                storage[i] = storage[i + 1];
-                storage[i + 1] = toBeDeleted;
-
-            }
-        }
-        storage[storage.length - 1] = null;
     }
 
     /**
@@ -58,6 +42,6 @@ public class ArrayStorage {
     }
 
     int size() {
-        return (int) Arrays.stream(storage).filter(Objects::nonNull).count();
+        return size;
     }
 }
