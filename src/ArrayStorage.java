@@ -5,8 +5,8 @@ import java.util.Objects;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int size;
+    private final Resume[] storage = new Resume[10000];
+    private int size;
 
     void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -14,14 +14,14 @@ public class ArrayStorage {
     }
 
     void save(Resume r) {
-        storage[size] = r;
-        size++;
+        if (r != null) {
+            storage[size] = r;
+            size++;
+        }
     }
 
     Resume get(String uuid) {
-        return Arrays.stream(storage)
-                .filter(Objects::nonNull)
-                .filter(resume -> resume.toString().equals(uuid)).findFirst().orElse(null);
+        return Arrays.stream(storage).limit(size).filter(resume -> resume.toString().equals(uuid)).findFirst().orElse(null);
     }
 
     void delete(String uuid) {
@@ -38,10 +38,12 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.stream(storage).filter(Objects::nonNull).toArray(Resume[]::new);
+        return Arrays.stream(storage).limit(size).toArray(Resume[]::new);
     }
 
     int size() {
         return size;
     }
+
+
 }
