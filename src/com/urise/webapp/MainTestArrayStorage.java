@@ -33,8 +33,7 @@ public class MainTestArrayStorage {
         System.out.println("Test save again");
         ARRAY_STORAGE.save(r4);
         System.out.println("....................................");
-        ARRAY_STORAGE.update(r4, "kek");
-        ARRAY_STORAGE.get("kek");
+        ARRAY_STORAGE.update(r4);
         ARRAY_STORAGE.delete(r4.getUuid());
 
         System.out.println("Test delete again");
@@ -42,7 +41,7 @@ public class MainTestArrayStorage {
         System.out.println("....................................");
 
         System.out.println("Test update deleted resume again");
-        ARRAY_STORAGE.update(r4,"kek");
+        ARRAY_STORAGE.update(r4);
         System.out.println("....................................");
 
         System.out.println("My test finished");

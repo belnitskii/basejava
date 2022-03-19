@@ -18,22 +18,20 @@ public class ArrayStorage {
     }
 
     public void save(Resume r) {
-        if (Arrays.stream(storage).limit(size).filter(resume -> resume.toString().equals(r.getUuid())).findFirst().orElse(null) == null) {
-            if (size < storage.length) {
-                storage[size++] = r;
-            } else {
-                System.out.println("ERROR: Хранилище переполнено");
-            }
-        } else {
+        if (Arrays.stream(storage).limit(size).filter(resume -> resume.toString().equals(r.getUuid())).findFirst().orElse(null) != null) {
             System.out.println("ERROR: Резюме " + r.getUuid() + " уже сохранено");
-        }
+        } else if (size >= storage.length) {
+            System.out.println("ERROR: Хранилище переполнено");
+        } else {
+            storage[size++] = r;
     }
+}
 
-    public void update(Resume r, String uuid) {
+    public void update(Resume r) {
         if (get(r.getUuid()) != null) {
             for (int i = 0; i < size; i++) {
                 if (r.getUuid().equals(storage[i].getUuid())) {
-                    storage[i].setUuid(uuid);
+                    storage[i] = r;
                 }
             }
         }
