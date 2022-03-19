@@ -27,15 +27,13 @@ public class ArrayStorage {
                 storage[size++] = r;
             }
         }
-}
+    }
 
     public void update(Resume r) {
         if (r != null) {
-            if (get(r.getUuid()) != null) {
-                for (int i = 0; i < size; i++) {
-                    if (r.getUuid().equals(storage[i].getUuid())) {
-                        storage[i] = r;
-                    }
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(r.getUuid())) {
+                    storage[i] = r;
                 }
             }
         }
@@ -50,16 +48,14 @@ public class ArrayStorage {
     }
 
     public void delete(String uuid) {
-        if (get(uuid) != null) {
-            for (int i = 0; i < size; i++) {
-                if (storage[i].toString().equals(uuid)) {
-                    storage[i] = null;
-                    size--;
-                    if ((i != size) && (size - i >= 0)) {
-                        System.arraycopy(storage, i + 1, storage, i, size - i);
-                    }
-                    break;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].toString().equals(uuid)) {
+                storage[i] = null;
+                size--;
+                if ((i != size) && (size - i >= 0)) {
+                    System.arraycopy(storage, i + 1, storage, i, size - i);
                 }
+                break;
             }
         }
     }
