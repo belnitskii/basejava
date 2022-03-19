@@ -29,6 +29,7 @@ public class MainTestArrayStorage {
         Resume r4 = new Resume();
         r4.setUuid("uuid4");
         ARRAY_STORAGE.save(r4);
+        ARRAY_STORAGE.update(null);
 
         System.out.println("Test save again");
         ARRAY_STORAGE.save(r4);
