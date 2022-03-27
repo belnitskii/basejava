@@ -18,12 +18,6 @@ public abstract class AbstractArrayStorage implements Storage {
         size = 0;
     }
 
-    public abstract void update(Resume r);
-
-    public abstract void save(Resume r);
-
-    public abstract void delete(String uuid);
-
     public int size() {
         return size;
     }

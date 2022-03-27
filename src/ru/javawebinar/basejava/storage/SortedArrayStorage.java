@@ -5,25 +5,11 @@ import ru.javawebinar.basejava.model.Resume;
 import java.util.Arrays;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
-    @Override
-    public void clear() {
-        super.clear();
-    }
 
     @Override
     public void update(Resume r) {
         int index = getIndex(r.getUuid());
-        if (index < 0) {
-            System.out.println("Resume " + r.getUuid() + " not exist");
-        } else {
-            for (int i = index; i < size; i++) {
-                Resume resume = storage[i];
-                storage[i] = storage[i + 1];
-                storage[i + 1] = resume;
-            }
-            storage[size--] = null;
-            save(r);
-        }
+        storage[index] = r;
     }
 
     @Override
@@ -33,10 +19,10 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         } else if (size >= STORAGE_LIMIT) {
             System.out.println("Storage overflow");
         } else {
-            size++;
-            int index = Math.abs(Arrays.binarySearch(storage, 0, size - 1, r) + 1);
-            System.arraycopy(storage, index, storage, index + 1, (size - 1) - index);
+            int index = Math.abs(Arrays.binarySearch(storage, 0, size, r) + 1);
+            System.arraycopy(storage, index, storage, index + 1, size - index);
             storage[index] = r;
+            size++;
         }
     }
 
@@ -45,29 +31,16 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         int index = getIndex(uuid);
         if (index < 0) {
             System.out.println("Resume " + uuid + " not exist");
+        } else if (index == size - 1) {
+            storage[--size] = null;
         } else {
             for (int i = index; i < size; i++) {
                 Resume resume = storage[i];
                 storage[i] = storage[i + 1];
                 storage[i + 1] = resume;
             }
-            storage[size--] = null;
+            storage[--size] = null;
         }
-    }
-
-    @Override
-    public int size() {
-        return super.size();
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        return super.get(uuid);
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return super.getAll();
     }
 
     @Override
@@ -77,4 +50,3 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         return Arrays.binarySearch(storage, 0, size, searchKey);
     }
 }
-

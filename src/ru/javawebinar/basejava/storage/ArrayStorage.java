@@ -9,11 +9,6 @@ import ru.javawebinar.basejava.model.Resume;
 public class ArrayStorage extends AbstractArrayStorage {
 
     @Override
-    public void clear() {
-        super.clear();
-    }
-
-    @Override
     public void update(Resume r) {
         int index = getIndex(r.getUuid());
         if (index == -1) {
@@ -45,21 +40,6 @@ public class ArrayStorage extends AbstractArrayStorage {
             storage[size - 1] = null;
             size--;
         }
-    }
-
-    @Override
-    public int size() {
-        return super.size();
-    }
-
-    @Override
-    public Resume get(String uuid) {
-        return super.get(uuid);
-    }
-
-    @Override
-    public Resume[] getAll() {
-        return super.getAll();
     }
 
     @Override
