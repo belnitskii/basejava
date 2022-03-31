@@ -1,6 +1,6 @@
 package ru.javawebinar.basejava.storage;
 
-public class SortedArrayStorageTest extends AbstractArrayStorageTest{
+public class SortedArrayStorageTest extends AbstractArrayStorageTest {
 
     private static final SortedArrayStorage storage = new SortedArrayStorage();
 

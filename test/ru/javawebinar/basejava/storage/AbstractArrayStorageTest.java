@@ -28,11 +28,6 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void size() {
-        Assert.assertEquals(3, storage.size());
-    }
-
-    @Test
     public void clear() {
         storage.clear();
         Assert.assertEquals(0, storage.size());
@@ -49,15 +44,6 @@ public abstract class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void updateNotExist() {
         storage.update(new Resume("notExist"));
-    }
-
-    @Test
-    public void getAll() {
-        Resume[] dummyArray = new Resume[]{new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
-        Assert.assertArrayEquals(storage.getAll(), dummyArray);
-        storage.clear();
-        Resume[] dummyArrayClear = new Resume[0];
-        Assert.assertArrayEquals(storage.getAll(), dummyArrayClear);
     }
 
     @Test
@@ -87,6 +73,19 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
+    public void get() {
+        storage.clear();
+        Resume dummy = new Resume(UUID_1);
+        storage.save(dummy);
+        Assert.assertSame(storage.get(UUID_1), dummy);
+    }
+
+    @Test(expected = NotExistStorageException.class)
+    public void getNotExist() {
+        storage.get("notExist");
+    }
+
+    @Test
     public void delete() {
         Assert.assertEquals(3, storage.size());
         storage.delete(UUID_1);
@@ -99,16 +98,17 @@ public abstract class AbstractArrayStorageTest {
     }
 
     @Test
-    public void get(){
+    public void getAll() {
+        Resume[] dummyArray = new Resume[]{new Resume(UUID_1), new Resume(UUID_2), new Resume(UUID_3)};
+        Assert.assertArrayEquals(storage.getAll(), dummyArray);
         storage.clear();
-        Resume dummy = new Resume(UUID_1);
-        storage.save(dummy);
-        Assert.assertSame(storage.get(UUID_1), dummy);
+        Resume[] dummyArrayClear = new Resume[0];
+        Assert.assertArrayEquals(storage.getAll(), dummyArrayClear);
     }
 
-    @Test(expected = NotExistStorageException.class)
-    public void getNotExist() {
-        storage.get("notExist");
+    @Test
+    public void size() {
+        Assert.assertEquals(3, storage.size());
     }
 
     protected abstract int getStorageLimit();
