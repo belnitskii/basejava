@@ -6,10 +6,10 @@ import org.junit.Test;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
+import java.util.Arrays;
 
-public class ListStorageTest {
-
-    private static final ListStorage storage = new ListStorage();
+public class MapStorageTest {
+    private static final MapStorage storage = new MapStorage();
 
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
@@ -67,12 +67,12 @@ public class ListStorageTest {
 
     @Test
     public void get() {
-        Assert.assertEquals(storage.get(RESUME_1.getUuid()), RESUME_1);
+        Assert.assertEquals(storage.get(UUID_1), RESUME_1);
     }
 
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() {
-        storage.get(new Resume().getUuid());
+        storage.get("notExist");
     }
 
     @Test
@@ -81,7 +81,7 @@ public class ListStorageTest {
         Assert.assertEquals(2, storage.size());
         try {
             storage.get(RESUME_1.getUuid());
-        } catch (NotExistStorageException ignored){
+        } catch (NotExistStorageException ignored) {
         }
     }
 
@@ -93,7 +93,9 @@ public class ListStorageTest {
     @Test
     public void getAll() {
         Resume[] resumes = new Resume[]{RESUME_1, RESUME_2, RESUME_3};
-        Assert.assertArrayEquals(storage.getAll(), resumes);
+        Resume[] resumesFromMap = storage.getAll();
+        Arrays.sort(resumesFromMap);
+        Assert.assertArrayEquals(resumesFromMap, resumes);
     }
 
     @Test

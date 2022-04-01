@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+
 import java.util.Arrays;
 
 /**
@@ -20,12 +21,7 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
 
     @Override
     protected void updateElement(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index < 0) {
-            System.out.println("Resume " + r.getUuid() + " not exist");
-        } else {
-            storage[index] = r;
-        }
+        storage[getIndex(r.getUuid())] = r;
     }
 
     @Override
