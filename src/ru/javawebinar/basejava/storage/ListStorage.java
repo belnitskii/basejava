@@ -4,9 +4,10 @@ import ru.javawebinar.basejava.model.Resume;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ListStorage extends AbstractStorage {
-    private List<Resume> list = new ArrayList<>();
+    private final List<Resume> list = new ArrayList<>();
 
     @Override
     protected Integer getSearchKey(String uuid) {
@@ -49,8 +50,8 @@ public class ListStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return list.toArray(new Resume[list.size()]);
+    public List<Resume> getAllSorted() {
+        return list.stream().sorted(Resume.resumeComparator).collect(Collectors.toList());
     }
 
     @Override

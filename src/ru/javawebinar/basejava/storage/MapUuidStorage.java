@@ -3,12 +3,13 @@ package ru.javawebinar.basejava.storage;
 import ru.javawebinar.basejava.model.Resume;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // TODO implement
 // TODO create new MapStorage with search key not uuid
 public class MapUuidStorage extends AbstractStorage {
-    private Map<String, Resume> map = new HashMap<>();
+    private final Map<String, Resume> map = new HashMap<>();
 
     @Override
     protected String getSearchKey(String uuid) {
@@ -45,8 +46,8 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    public Resume[] getAll() {
-        return new Resume[0];
+    public List<Resume> getAllSorted() {
+        return null;
     }
 
     @Override
