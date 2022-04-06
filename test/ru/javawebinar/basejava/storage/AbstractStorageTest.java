@@ -2,8 +2,6 @@ package ru.javawebinar.basejava.storage;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
 import ru.javawebinar.basejava.exception.ExistStorageException;
 import ru.javawebinar.basejava.exception.NotExistStorageException;
 import ru.javawebinar.basejava.model.Resume;
@@ -12,12 +10,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-//@RunWith(Suite.class)
-//@Suite.SuiteClasses({
-//        ArrayStorageTest.class,
-//        SortedArrayStorageTest.class,
-//        ListStorageTest.class
-//})
+
 public abstract class AbstractStorageTest {
     protected final Storage storage;
 
@@ -63,9 +56,10 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void update(){
-        Resume newResume = new Resume(UUID_1);
+        Resume newResume = new Resume("UUID_666", "Vasiliy");
+        storage.save(newResume);
         storage.update(newResume);
-        assertSame(newResume, storage.get(UUID_1));
+        assertGet(newResume);
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -123,7 +117,7 @@ public abstract class AbstractStorageTest {
         storage.get("dummy");
     }
 
-    private void assertGet(Resume r) {
+    protected void assertGet(Resume r) {
         assertEquals(r, storage.get(r.getUuid()));
     }
 
