@@ -1,7 +1,5 @@
 package ru.javawebinar.basejava.model;
 
-import ru.javawebinar.basejava.storage.SortedArrayStorage;
-
 import java.util.Comparator;
 import java.util.UUID;
 
@@ -9,8 +7,7 @@ import java.util.UUID;
  * ru.javawebinar.basejava.model.Resume class
  */
 public class Resume{
-    public static Comparator<Resume> resumeUuidComparator = new ResumeUuidComparator();
-    public static Comparator<Resume> resumeComparator = new ResumeNameComparator().thenComparing(resumeUuidComparator);
+    public static Comparator<Resume> resumeComparator = new ResumeNameComparator().thenComparing(new ResumeUuidComparator());
 
     // Unique identifier
     private final String uuid;
