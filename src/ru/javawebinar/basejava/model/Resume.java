@@ -1,5 +1,6 @@
 package ru.javawebinar.basejava.model;
 
+import java.util.EnumMap;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -7,6 +8,9 @@ import java.util.UUID;
  * ru.javawebinar.basejava.model.Resume class
  */
 public class Resume implements Comparable<Resume> {
+
+    EnumMap<ContactType, String> contacts = new EnumMap<>(ContactType.class);
+    EnumMap<SectionType, Section> sections = new EnumMap<>(SectionType.class);
 
     // Unique identifier
     private final String uuid;
