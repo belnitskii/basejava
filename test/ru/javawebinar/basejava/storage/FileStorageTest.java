@@ -1,8 +1,9 @@
 package ru.javawebinar.basejava.storage;
 
-import static org.junit.Assert.*;
-import static ru.javawebinar.basejava.storage.AbstractStorageTest.STORAGE_DIR;
+import serialize.ObjectStreamSerialize;
 
-public class FileStorageTest {
-
+public class FileStorageTest extends AbstractStorageTest{
+    public FileStorageTest() {
+        super(new FileStorage(STORAGE_DIR, new ObjectStreamSerialize()));
+    }
 }

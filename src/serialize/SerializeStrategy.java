@@ -1,4 +1,4 @@
-package ru.javawebinar.basejava.storage;
+package serialize;
 
 import ru.javawebinar.basejava.model.Resume;
 

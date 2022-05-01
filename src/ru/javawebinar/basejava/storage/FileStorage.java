@@ -2,6 +2,7 @@ package ru.javawebinar.basejava.storage;
 
 import ru.javawebinar.basejava.exception.StorageException;
 import ru.javawebinar.basejava.model.Resume;
+import serialize.SerializeStrategy;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -13,12 +14,13 @@ import java.util.Objects;
  * 22.07.2016
  */
 public class FileStorage extends AbstractStorage<File> {
-    private File directory;
+    private final File directory;
 
-    SerializeStrategy serializeStrategy;
+    private final SerializeStrategy serializeStrategy;
 
-    protected FileStorage(File directory) {
+    protected FileStorage(File directory, SerializeStrategy serializeStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
+        this.serializeStrategy = serializeStrategy;
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
@@ -55,7 +57,7 @@ public class FileStorage extends AbstractStorage<File> {
     @Override
     protected void doUpdate(Resume r, File file) {
         try {
-             serializeStrategy.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
+            serializeStrategy.doWrite(r, new BufferedOutputStream(new FileOutputStream(file)));
         } catch (IOException e) {
             throw new StorageException("File write error", r.getUuid(), e);
         }
